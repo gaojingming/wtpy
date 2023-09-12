@@ -63,8 +63,9 @@ class DHTushare(BaseDataHelper):
 
     def dmpCodeListToFile(self, filename:str, hasIndex:bool=True, hasStock:bool=True):
         stocks = {
-            "SSE":{},
-            "SZSE":{}
+            "SSE":{},   # 上交所
+            "SZSE":{},  # 深交所
+            "BSE":{}    # 北交所
         }
         
         #个股列表
@@ -78,8 +79,10 @@ class DHTushare(BaseDataHelper):
                 pid = "STK"
                 if code[-2:] == "SH":
                     sInfo["exchg"] = "SSE"
-                else:
+                elif code[-2:] == "SZ":
                     sInfo["exchg"] = "SZSE"
+                elif code[-2:] == "BJ":
+                    sInfo["exchg"] = "BSE"
                 code = rawcode #code[-2:] + rawcode
                 sInfo["code"] = code
                 sInfo["name"] = row["name"]
